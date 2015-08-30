@@ -29,6 +29,8 @@ public class User {
 		super();
 		this.uname = name;
 		this.pass = pass;
+		this.confirmed = 0;
+		this.email = "";
 	}
 
 	public int authenticate() {
@@ -37,11 +39,18 @@ public class User {
 		if(stmt==null) {
 			result = 2;
 		} else {
-			String query="select * from users where uname=\'"+uname+"\' and pass=\'"+pass+"\';";
+			String query="select * from users where uname=\'"+uname+"\';";
 			try {
 				ResultSet rs = stmt.executeQuery(query);
 				if(rs.next()) {
 					result=1;
+					confirmed = (byte) rs.getInt("confirmed");
+					String q_pass = rs.getString("pass");
+					if(confirmed==0)
+						result=3;
+					else if(!pass.equals(q_pass)) {
+						result=0;
+					}
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -53,6 +62,21 @@ public class User {
 	
 	}
 
+	public int addUser() {
+		int result=0;
+		Statement stmt = DBOperations.getStatement();
+		
+		String query = "insert into users values(\""+uname+"\",\""+pass+"\",\""+email+"\",0);";
+		try {
+			int vals=stmt.executeUpdate(query);
+			if(vals>0) 
+				result=1;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 
 

@@ -4,9 +4,62 @@
 <meta charset="ISO-8859-1">
 <title>Ragistration</title>
 <link rel="stylesheet" href="bootstrap.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript" >
+$(document).ready(function(){
+	
+	var valid_un="false";
+	
+	//checking username availability...
+	$("#uname").blur(function(){
+		var uname =$(this).val();
+		if(uname.length < 3) {
+			$("#status").html("<font color=red>User name should be 3 chars long.</font>");
+		}else {
+			 $("#status").html("<img src='images/ajax-loader.gif'><font color=gray> Checking availability...</font>");
+			 $.post ("http://localhost:8080/FilesHub/checkAvailability",
+					{uname:uname},function(data,status){
+						$("#status").html(data);
+						if(data=="<font color=\"green\"><b>"+uname+"</b> is avaliable.</font>") {
+							valid_un="true";
+						}else {
+							valid_un="false";
+						}
+					});
+		}
+	});
+	
+	
+	//Validating form data..
+	$("#register").click(function(){
+		if($("#uname").val().length < 3){$("#status").html("<font color=red>Please enter proper user name.</font>");return false;};
+		if($("#pass").val().length < 1){$("#status_pass").html("<font color=red>Please choose a password.</font>");return false;}else{$("#status_pass").html("")};
+		if($("#passC").val()!=$("#pass").val()){$("#status_passC").html("<font color=red>Passwords do not match.</font>");return false;}else{$("#status_passC").html("")};
+		var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if(!regex.test($("#email").val())){$("#status_email").html("<font color=red>Please enter a valid e-mail address.</font>");return false;}else{$("#status_email").html("")};
+		if(valid_un=="false"){$("#status").html("<font color=red>Please choose another user name.</font>");$("#uname").focus();return false;}
+	});		
+});
+
+
+</script>
+
 </head>
 <body>
 <h1 class="title">Registration Page</h1>
-
+<form action="http://localhost:8080/FilesHub/register" method="post" >
+<table class="contentTable" align="center" style="padding-left: 120px;">
+ <tr><td><h1 class="title"> FilesHub </h1> </td></tr>
+ <tr><td> <input id="uname" type="text" name="uname" placeholder="User Name" size="50" /> </td> <td width="250px" align="left"><span id="status" ></span> </td></tr>
+ <tr><td> <input id="pass" type="password" name="pass" placeholder="Password" size="50" /> </td><td width="250px" align="left"><span id="status_pass" ></span> </td></tr>
+ <tr><td> <input id="passC" type="password" name="passC" placeholder="Confirm Password" size="50" /> </td><td width="250px" align="left"><span id="status_passC" ></span> </td></tr>
+ <tr><td> <input id="email" type="text" name="email" placeholder="e-mail" size="50" /> </td><td width="250px" align="left"><span id="status_email" ></span> </td></tr>
+ <tr><td> <input id="register" type="submit" name="register" value="Register" /> </td></tr>
+ <tr><td> <i>Already A Member? Click Login</i> </td></tr>
+ 
+ <tr><td> <input type="button" name="login" value="login" onClick="location.href='http://localhost:8080/FilesHub/index.html'" /> </td></tr>
+ </table>
+</form>
 </body>
 </html>

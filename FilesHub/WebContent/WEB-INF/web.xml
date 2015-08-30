@@ -9,15 +9,31 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
- 
-	<servlet>
-	<servlet-name>Authentication</servlet-name>
-	<servlet-class>com.tests.fh.Authentication</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	<servlet-name>Authentication</servlet-name>
-	<url-pattern>/authentication</url-pattern>
-	</servlet-mapping>
+  <servlet>
+    <servlet-name>Authentication</servlet-name>
+    <servlet-class>com.tests.fh.Authentication</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Authentication</servlet-name>
+    <url-pattern>/authentication</url-pattern>
+  </servlet-mapping>
   
+  <servlet>
+    <servlet-name>CheckAvailability</servlet-name>
+    <servlet-class>com.tests.fh.CheckAvailability</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckAvailability</servlet-name>
+    <url-pattern>/checkAvailability</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.tests.fh.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
   
 </web-app>
