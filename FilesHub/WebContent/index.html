@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="bootstrap.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<title>FilesHub</title>
+</head>
+<body>
+<form action="http://localhost:8080/FilesHub/authentication" method="post" >
+ <table class="contentTable" align="center">
+ <tr><td><h1 class="title"> FilesHub </h1> </td></tr>
+ <tr><td> <input type="text" name="uname" placeholder="User Name" size="50" /> </td></tr>
+ <tr><td> <input type="password" name="pass" placeholder="Password" size="50" /> </td></tr>
+ <tr><td> <input type="submit" name="login" value="Login" /> </td></tr>
+ 
+ <tr><td> <i>NOT A MEMBER? Click Register</i> </td></tr>
+ 
+ <tr><td> <input type="button" name="register" value="Register" onClick="location.href='http://localhost:8080/FilesHub/Registration.html'" /> </td></tr>
+ </table>
+</form>
+</body>
+</html>
